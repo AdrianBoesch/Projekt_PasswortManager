@@ -22,6 +22,10 @@ namespace Projekt_PasswortManager
         public EditWindow()
         {
             InitializeComponent();
+
+
+
+            Console.Write(kdjnkdjdnkö);
         }
     }
 }
