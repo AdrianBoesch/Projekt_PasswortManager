@@ -16,9 +16,22 @@ namespace Projekt_PasswortManager
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private List<AppEingabe> apps = new List<AppEingabe>();
         public MainWindow()
         {
             InitializeComponent();
+            AppListe.ItemsSource = apps;
+        }
+
+        private void AppListe_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var ausgewählt = AppListe.SelectedItem as AppEingabe;
+            if (ausgewählt != null)
+            {
+                var fenster = new PasswortFenster(ausgewählt.Passwort);
+                fenster.Show();
+            }
         }
     }
 }

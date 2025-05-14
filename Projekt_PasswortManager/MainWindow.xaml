@@ -6,9 +6,23 @@
         xmlns:local="clr-namespace:Projekt_PasswortManager"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Canvas>
-        <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5" Canvas.Left="30" Canvas.Top="30" Width="125"/>
-        <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="30" Canvas.Top="70" Width="125" Padding="5"/>
-        <Button Content="Edit" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="30" Canvas.Top="110" Width="125" Padding="5"/>
-    </Canvas>
+    <DockPanel>
+        <Button Content="App hinzufügen"
+                DockPanel.Dock="Top"
+                Height="30"
+                Click="HinzufügenButton_Click"/>
+        <Button Content="App Editieren"
+                DockPanel.Dock="Top"
+                Height="30"
+                Click="App Löschen"/>
+        <Button Content="App hinzufügen"
+                DockPanel.Dock="Top"
+                Height="30"
+                Click="HinzufügenButton_Click"/>
+
+        <ListBox x:Name="AppListe"
+                 DisplayMemberPath="AppName"
+                 MouseDoubleClick="AppListe_MouseDoubleClick"
+                 Margin="10"/>
+    </DockPanel>
 </Window>

@@ -1,12 +1,26 @@
-﻿<Window x:Class="Projekt_PasswortManager.EditWindow"
+﻿<Window x:Class="PasswortApp.AppHinzufügenFenster"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Projekt_PasswortManager"
-        mc:Ignorable="d"
-        Title="EditWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="App hinzufügen" Height="200" Width="300">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="App-Name:"/>
+            <TextBox x:Name="AppNameBox" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Passwort:"/>
+            <PasswordBox x:Name="PasswortBox" Margin="0,0,0,10"/>
+        </StackPanel>
+
+        <Button Grid.Row="2"
+                Content="Hinzufügen"
+                HorizontalAlignment="Right"
+                Width="100"
+                Click="Hinzufügen_Click"/>
     </Grid>
 </Window>
