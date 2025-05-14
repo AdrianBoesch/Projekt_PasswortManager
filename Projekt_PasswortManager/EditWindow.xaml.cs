@@ -24,8 +24,6 @@ namespace Projekt_PasswortManager
             InitializeComponent();
 
 
-
-            Console.Write(kdjnkdjdnkö);
         }
     }
 }

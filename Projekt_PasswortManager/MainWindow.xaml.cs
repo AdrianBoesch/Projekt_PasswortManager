@@ -19,6 +19,10 @@ namespace Projekt_PasswortManager
         public MainWindow()
         {
             InitializeComponent();
+
+            string passwort = "1234"; 
+            int hash = passwort.GetHashCode();
+            Console.WriteLine(passwort.GetHashCode());
         }
     }
 }

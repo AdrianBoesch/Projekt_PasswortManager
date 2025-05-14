@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projekt_PasswortManager"
         mc:Ignorable="d"
-        Title="EditWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Master-Window" Height="150" Width="450" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Text=" Bitte Passwort eingeben:" FontWeight="Bold"/>
+        <PasswordBox x:Name="PasswortBox" Grid.Row="1" Margin="0,5,0,0"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="OK" Width="75" Margin="0,0,5,0" IsDefault="True"/>
+            <Button Content="Abbrechen" Width="75" IsCancel="True"/>
+        </StackPanel>
+
     </Grid>
 </Window>
