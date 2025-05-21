@@ -49,5 +49,20 @@ namespace Projekt_PasswortManager
         {
 
         }
+
+        private void PrüfePasswort(AppEintrag ausgewählt)
+        {
+           
+            var verif = new VerificationWindow(ausgewählt.Passwort);
+            if (verif.ShowDialog() == true)
+            {
+               
+                MessageBox.Show("Zugriff gewährt für " + ausgewählt.AppName);
+            }
+            else
+            {
+               
+            }
+        }
     }
 }

@@ -1,27 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Projekt_PasswortManager
 {
-    /// <summary>
-    /// Interaction logic for VerificationWindow.xaml
-    /// </summary>
     public partial class VerificationWindow : Window
     {
-        public VerificationWindow()
+        
+        private string expectedHash;
+
+        public VerificationWindow(string storedHash)
         {
             InitializeComponent();
+            
+            expectedHash = storedHash;
+        }
+
+        private void Pruefen_Click(object sender, RoutedEventArgs e)
+        {
+           
+            string input = PasswordCheckBox.Password;
+           
+            string inputHash = HashHelper.ComputeSha256Hash(input);
+
+        
+            if (inputHash == expectedHash)
+            {
+                MessageBox.Show("Passwort korrekt!", "OK",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Falsches Passwort!", "Fehler",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                DialogResult = false;
+            }
         }
     }
 }
