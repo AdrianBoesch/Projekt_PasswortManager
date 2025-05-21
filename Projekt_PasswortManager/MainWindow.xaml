@@ -7,22 +7,25 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
-        <Button Content="App hinzufügen"
-                DockPanel.Dock="Top"
+        <StackPanel Orientation="Vertical">
+            <Button Content="App hinzufügen"
+                DockPanel.Dock="Left"
                 Height="30"
+                Width="100"
                 Click="HinzufügenButton_Click"/>
-        <Button Content="App Editieren"
+
+
+            <Button Content="App Löschen"
                 DockPanel.Dock="Top"
                 Height="30"
-                Click="App Löschen"/>
-        <Button Content="App hinzufügen"
-                DockPanel.Dock="Top"
-                Height="30"
-                Click="HinzufügenButton_Click"/>
+                Click="LöschenButton_Click"/>
+        </StackPanel>
 
         <ListBox x:Name="AppListe"
                  DisplayMemberPath="AppName"
                  MouseDoubleClick="AppListe_MouseDoubleClick"
                  Margin="10"/>
+
+        
     </DockPanel>
 </Window>

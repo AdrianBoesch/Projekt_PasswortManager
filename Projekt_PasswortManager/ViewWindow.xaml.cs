@@ -19,9 +19,14 @@ namespace Projekt_PasswortManager
     /// </summary>
     public partial class ViewWindow : Window
     {
-        public ViewWindow()
-        {
-            InitializeComponent();
-        }
+        
+        
+            public ViewWindow(string passwort)
+            {
+                InitializeComponent();
+                PasswortText.Text = passwort;
+            }
+        
     }
 }
+

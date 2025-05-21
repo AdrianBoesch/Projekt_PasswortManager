@@ -1,4 +1,4 @@
-﻿using PasswortApp;
+﻿using Projekt_PasswortManager;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,19 +30,24 @@ namespace Projekt_PasswortManager
             var ausgewählt = AppListe.SelectedItem as AppEintrag;
             if (ausgewählt != null)
             {
-                var fenster = new EditWindow(ausgewählt.Passwort);
+                var fenster = new ViewWindow(ausgewählt.Passwort);
                 fenster.Show();
             }
         }
 
         private void HinzufügenButton_Click(object sender, RoutedEventArgs e)
         {
-            var eingabeFenster = new AppHinzufügenFenster();
+            var eingabeFenster = new EditWindow();
             if (eingabeFenster.ShowDialog() == true)
             {
                 apps.Add(eingabeFenster.NeuerEintrag);
                 AppListe.Items.Refresh();
             }
+        }
+
+        private void LöschenButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
