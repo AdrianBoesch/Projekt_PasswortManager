@@ -47,7 +47,26 @@ namespace Projekt_PasswortManager
 
         private void LöschenButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var ausgewählt = AppListe.SelectedItem as AppEintrag;
+            if (ausgewählt != null)
+            {
+                var result = MessageBox.Show($"Möchtest du \"{ausgewählt.AppName}\" wirklich löschen?",
+                                             "Löschen bestätigen",
+                                             MessageBoxButton.YesNo,
+                                             MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    apps.Remove(ausgewählt);
+                    AppListe.Items.Refresh();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Bitte wähle zuerst einen Eintrag aus der Liste aus.",
+                                "Hinweis",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+            }
         }
     }
 }

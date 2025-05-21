@@ -5,7 +5,7 @@
     <Grid Margin="10">
         <StackPanel VerticalAlignment="Center">
 
-            <!-- Passwortanzeige -->
+            
             <TextBlock x:Name="PasswortText"
                        FontSize="20"
                        FontWeight="Bold"
@@ -13,7 +13,7 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,10"/>
 
-            <!-- Umschalt-Button -->
+            
             <Button x:Name="ToggleButton"
                     Content="Anzeigen"
                     Width="100"
