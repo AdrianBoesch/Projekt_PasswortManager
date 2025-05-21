@@ -19,13 +19,33 @@ namespace Projekt_PasswortManager
     /// </summary>
     public partial class EditWindow : Window
     {
+
+        public AppEintrag NeuerEintrag { get; private set; }
         public EditWindow()
         {
             InitializeComponent();
-
-
-
-            Console.Write(kdjnkdjdnkö);
         }
+
+        private void Hinzufügen_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(AppNameBox.Text) && !string.IsNullOrWhiteSpace(PasswortBox.Password))
+            {
+                NeuerEintrag = new AppEintrag
+                {
+                    AppName = AppNameBox.Text,
+                    Passwort = PasswortBox.Password
+                };
+                this.DialogResult = true;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Bitte App-Name und Passwort eingeben.");
+            }
+
+        }
+    }
+}
+
     }
 }

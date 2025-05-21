@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using PasswortApp;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,8 +17,8 @@ namespace Projekt_PasswortManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<AppEintrag> apps = new List<AppEintrag>();
 
-        private List<AppEingabe> apps = new List<AppEingabe>();
         public MainWindow()
         {
             InitializeComponent();
@@ -26,11 +27,21 @@ namespace Projekt_PasswortManager
 
         private void AppListe_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var ausgewählt = AppListe.SelectedItem as AppEingabe;
+            var ausgewählt = AppListe.SelectedItem as AppEintrag;
             if (ausgewählt != null)
             {
-                var fenster = new PasswortFenster(ausgewählt.Passwort);
+                var fenster = new EditWindow(ausgewählt.Passwort);
                 fenster.Show();
+            }
+        }
+
+        private void HinzufügenButton_Click(object sender, RoutedEventArgs e)
+        {
+            var eingabeFenster = new AppHinzufügenFenster();
+            if (eingabeFenster.ShowDialog() == true)
+            {
+                apps.Add(eingabeFenster.NeuerEintrag);
+                AppListe.Items.Refresh();
             }
         }
     }
