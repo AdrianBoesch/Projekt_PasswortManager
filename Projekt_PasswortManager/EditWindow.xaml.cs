@@ -14,13 +14,10 @@ using System.Windows.Shapes;
 
 namespace Projekt_PasswortManager
 {
-    /// <summary>
-    /// Interaction logic for EditWindow.xaml
-    /// </summary>
     public partial class EditWindow : Window
     {
-
         public AppEintrag NeuerEintrag { get; private set; }
+
         public EditWindow()
         {
             InitializeComponent();
@@ -28,24 +25,36 @@ namespace Projekt_PasswortManager
 
         private void Hinzufügen_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(AppNameBox.Text) && !string.IsNullOrWhiteSpace(PasswortBox.Password))
+            
+            string name = AppNameBox.Text;
+            if (string.IsNullOrWhiteSpace(name))
             {
-                NeuerEintrag = new AppEintrag
-                {
-                    AppName = AppNameBox.Text,
-                    Passwort = PasswortBox.Password
-                };
-                this.DialogResult = true;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Bitte App-Name und Passwort eingeben.");
+                MessageBox.Show("Bitte App-Name eingeben.");
+                return;
             }
 
+            
+            string pw = PasswortBox.Password;
+            if (string.IsNullOrEmpty(pw))
+            {
+                MessageBox.Show("Bitte Passwort eingeben.");
+                return;
+            }
+
+            
+            string pwHash = HashHelper.ComputeSha256Hash(pw);
+
+            
+            NeuerEintrag = new AppEintrag
+            {
+                AppName = name,
+                Passwort = pwHash
+            };
+
+           
+            DialogResult = true;
+            Close();
         }
     }
 }
-
-    
 
