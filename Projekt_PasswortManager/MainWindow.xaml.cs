@@ -16,13 +16,22 @@ namespace Projekt_PasswortManager
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private List<AppEingabe> apps = new List<AppEingabe>();
         public MainWindow()
         {
             InitializeComponent();
+            AppListe.ItemsSource = apps;
+        }
 
-            string passwort = "1234"; 
-            int hash = passwort.GetHashCode();
-            Console.WriteLine(passwort.GetHashCode());
+        private void AppListe_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var ausgewählt = AppListe.SelectedItem as AppEingabe;
+            if (ausgewählt != null)
+            {
+                var fenster = new PasswortFenster(ausgewählt.Passwort);
+                fenster.Show();
+            }
         }
     }
 }
