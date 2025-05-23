@@ -6,26 +6,35 @@
         xmlns:local="clr-namespace:Projekt_PasswortManager"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <DockPanel>
-        <StackPanel Orientation="Vertical">
-            <Button Content="App hinzufügen"
-                DockPanel.Dock="Left"
-                Height="30"
-                Width="100"
-                Click="HinzufügenButton_Click"/>
+    <DockPanel Background="Beige">
+        <StackPanel Orientation="Vertical" Background="Beige" Margin="10">
 
+            <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="0.1" Background="BurlyWood" Margin="0,0,0,10">
+                <Button Content="Hinzufügen"
+                    Height="30"
+                    Padding="10,0"
+                    Click="HinzufügenButton_Click"
+                    Margin="5"
+                    Background="BurlyWood"
+                    BorderBrush="Transparent"/>
+            </Border>
 
-            <Button Content="App Löschen"
-                DockPanel.Dock="Top"
-                Height="30"
-                Click="LöschenButton_Click"/>
+            <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="0.1" Background="BurlyWood">
+                
+                <Button Content="Löschen"
+                    Height="30"
+                    Padding="10,0"
+                    Click="LöschenButton_Click"
+                    Margin="5"
+                    Background="BurlyWood"
+                    BorderBrush="Transparent"/>
+            </Border>
         </StackPanel>
 
         <ListBox x:Name="AppListe"
                  DisplayMemberPath="AppName"
                  MouseDoubleClick="AppListe_MouseDoubleClick"
-                 Margin="10"/>
-
-        
+                 Margin="10"
+                 Background="Bisque"/>
     </DockPanel>
 </Window>
