@@ -9,26 +9,22 @@
     <DockPanel Background="Beige">
         <StackPanel Orientation="Vertical" Background="Beige" Margin="10">
 
-            <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="0.1" Background="BurlyWood" Margin="0,0,0,10">
-                <Button Content="Hinzufügen"
-                    Height="30"
-                    Padding="10,0"
+            <Button Content="Hinzufügen"   
+                    Padding="10"
                     Click="HinzufügenButton_Click"
                     Margin="5"
                     Background="BurlyWood"
-                    BorderBrush="Transparent"/>
-            </Border>
+                    BorderThickness="0"
+                    />
 
-            <Border CornerRadius="10" BorderBrush="Gray" BorderThickness="0.1" Background="BurlyWood">
-                
-                <Button Content="Löschen"
+            <Button Content="Löschen"
+                    FocusVisualStyle="{x:Null}"
                     Height="30"
                     Padding="10,0"
                     Click="LöschenButton_Click"
                     Margin="5"
                     Background="BurlyWood"
                     BorderBrush="Transparent"/>
-            </Border>
         </StackPanel>
 
         <ListBox x:Name="AppListe"
