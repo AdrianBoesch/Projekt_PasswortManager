@@ -42,13 +42,13 @@ namespace Projekt_PasswortManager
             }
 
             
-            string pwHash = HashHelper.ComputeSha256Hash(pw);
+            
 
             
             NeuerEintrag = new AppEintrag
             {
                 AppName = name,
-                Passwort = pwHash
+                Passwort = pw
             };
 
            
