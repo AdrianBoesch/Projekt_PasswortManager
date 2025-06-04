@@ -8,12 +8,18 @@ namespace Projekt_PasswortManager
     public partial class VerificationWindow : Window
     {
         private readonly Config _cfg;
+        private string passwort;
 
         public VerificationWindow()
         {
             InitializeComponent();
             
             _cfg = ConfigService.Load();
+        }
+
+        public VerificationWindow(string passwort)
+        {
+            this.passwort = passwort;
         }
 
         private void OnVerifyClick(object sender, RoutedEventArgs e)
