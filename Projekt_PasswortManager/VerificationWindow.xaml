@@ -15,7 +15,16 @@
         <Button Content="Anmelden"
                 Grid.Row="2"
                 Width="100"
+                Height="20"
                 HorizontalAlignment="Right"
                 Click="OnVerifyClick"/>
+
+
+        <Button Content="Passwort hinzufügen"
+        Width="100"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Bottom"
+        Click="OnAddPwClick" Margin="0,0,0,-30" Grid.Row="2"
+        FontSize="10" Height="20"/>
     </Grid>
 </Window>

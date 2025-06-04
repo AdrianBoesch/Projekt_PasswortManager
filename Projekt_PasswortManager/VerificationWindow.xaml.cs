@@ -8,12 +8,18 @@ namespace Projekt_PasswortManager
     public partial class VerificationWindow : Window
     {
         private readonly Config _cfg;
+        private string passwort;
 
         public VerificationWindow()
         {
             InitializeComponent();
             
             _cfg = ConfigService.Load();
+        }
+
+        public VerificationWindow(string passwort)
+        {
+            this.passwort = passwort;
         }
 
         private void OnVerifyClick(object sender, RoutedEventArgs e)
@@ -61,6 +67,15 @@ namespace Projekt_PasswortManager
             using var sha = SHA256.Create();
             byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(raw));
             return Convert.ToBase64String(bytes);
+        }
+
+        private void OnAddPwClick(object sender, RoutedEventArgs e)
+        {
+            VerifPwAdd verifPwAdd = new VerifPwAdd();
+            verifPwAdd.Show();
+
+            
+            
         }
     }
 }
