@@ -1,0 +1,36 @@
+﻿<Window x:Class="Projekt_PasswortManager.VerifPwAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="App hinzufügen" Height="200" Width="400">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="Dein Passwort:"/>
+
+            <Grid>
+                <!-- Verdecktes Passwort -->
+                <PasswordBox x:Name="PasswortBox" Margin="0,0,30,0" PasswordChanged="PasswortBox_PasswordChanged"/>
+
+                <!-- Sichtbares Passwort -->
+                <TextBox x:Name="PasswortTextBox" Margin="0,0,30,0" Visibility="Collapsed" TextChanged="PasswortTextBox_TextChanged"/>
+
+                <!-- Augen-Button -->
+                <Button x:Name="ToggleBtn" Content="👁" Width="25" Height="25"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Click="ToggleBtn_Click"/>
+            </Grid>
+        </StackPanel>
+
+        <Button Grid.Row="1"
+                Content="Hinzufügen"
+                HorizontalAlignment="Right"
+                Width="100"
+                Margin="0,10,0,0"
+                Click="Hinzufügen_Click"/>
+    </Grid>
+</Window>

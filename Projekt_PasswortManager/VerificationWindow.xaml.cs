@@ -68,5 +68,14 @@ namespace Projekt_PasswortManager
             byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(raw));
             return Convert.ToBase64String(bytes);
         }
+
+        private void OnAddPwClick(object sender, RoutedEventArgs e)
+        {
+            VerifPwAdd verifPwAdd = new VerifPwAdd();
+            verifPwAdd.Show();
+
+            
+            
+        }
     }
 }
