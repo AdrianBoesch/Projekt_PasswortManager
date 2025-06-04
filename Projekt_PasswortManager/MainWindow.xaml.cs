@@ -43,20 +43,36 @@ namespace Projekt_PasswortManager
 
         private void LöschenButton_Click(object sender, RoutedEventArgs e)
         {
-            AppEintrag selected = this.AppListe.SelectedItem as AppEintrag;
-            if (selected != null)
+            var ausgewählt = AppListe.SelectedItem as AppEintrag;
+            if (ausgewählt != null)
             {
-                MessageBoxResult answer = MessageBox.Show(
-                    $"Möchtest du \"{selected.AppName}\" wirklich löschen?",
-                    "Löschen bestätigen",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
-
-                if (answer == MessageBoxResult.Yes)
+                var result = MessageBox.Show($"Möchtest du \"{ausgewählt.AppName}\" wirklich löschen?",
+                                             "Löschen bestätigen",
+                                             MessageBoxButton.YesNo,
+                                             MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
                 {
-                    this.apps.Remove(selected);
-                    this.AppListe.Items.Refresh();
+                    apps.Remove(ausgewählt);
+                    AppListe.Items.Refresh();
                 }
+            }
+            else
+            {
+                MessageBox.Show("Bitte wähle zuerst einen Eintrag aus der Liste aus.",
+                                "Hinweis",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+            }
+        }
+
+        private void PrüfePasswort(AppEintrag ausgewählt)
+        {
+           
+            var verif = new VerificationWindow(ausgewählt.Passwort);
+            if (verif.ShowDialog() == true)
+            {
+               
+                MessageBox.Show("Zugriff gewährt für " + ausgewählt.AppName);
             }
             else
             {

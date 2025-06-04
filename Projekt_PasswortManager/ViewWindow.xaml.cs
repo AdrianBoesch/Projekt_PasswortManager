@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -19,14 +20,35 @@ namespace Projekt_PasswortManager
     /// </summary>
     public partial class ViewWindow : Window
     {
-        
-        
-            public ViewWindow(string passwort)
+        private string echtesPasswort;
+        private bool istSichtbar = false;
+
+        public ViewWindow(string passwort)
+        {
+            InitializeComponent();
+            echtesPasswort = passwort;
+            AktualisiereAnzeige();
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            istSichtbar = !istSichtbar;
+            AktualisiereAnzeige();
+        }
+
+        private void AktualisiereAnzeige()
+        {
+            if (istSichtbar)
             {
-                InitializeComponent();
-                PasswortText.Text = passwort;
+                PasswortText.Text = echtesPasswort;
+                ToggleButton.Content = "Verbergen";
             }
-        
+            else
+            {
+                PasswortText.Text = new string('●', echtesPasswort.Length); 
+                ToggleButton.Content = "Anzeigen";
+            }
+        }
     }
 }
 
