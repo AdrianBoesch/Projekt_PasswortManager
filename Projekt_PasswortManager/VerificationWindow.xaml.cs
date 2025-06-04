@@ -1,40 +1,66 @@
-﻿using System.Windows;
-
+﻿using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows;
 
 namespace Projekt_PasswortManager
 {
     public partial class VerificationWindow : Window
     {
-        
-        private string expectedHash;
+        private readonly Config _cfg;
 
-        public VerificationWindow(string storedHash)
+        public VerificationWindow()
         {
             InitializeComponent();
             
-            expectedHash = storedHash;
+            _cfg = ConfigService.Load();
         }
 
-        private void Pruefen_Click(object sender, RoutedEventArgs e)
+        private void OnVerifyClick(object sender, RoutedEventArgs e)
         {
-           
-            string input = PasswordCheckBox.Password;
-           
-            string inputHash = HashHelper.ComputeSha256Hash(input);
-
-        
-            if (inputHash == expectedHash)
+            string entered = MasterPasswordBox.Password;
+            if (string.IsNullOrEmpty(entered))
             {
-                MessageBox.Show("Passwort korrekt!", "OK",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                DialogResult = true;
+                MessageBox.Show("Bitte ein Passwort eingeben.");
+                return;
+            }
+
+            string hash = ComputeSha256Hash(entered);
+
+            if (string.IsNullOrEmpty(_cfg.MasterPasswordHash))
+            {
+                // new master password anlegen
+                _cfg.MasterPasswordHash = hash;
+                ConfigService.Save(_cfg);
+                OpenMainWindow(entered);
+            }
+            else if (hash == _cfg.MasterPasswordHash)
+            {
+                // Richtiges Passwort
+                OpenMainWindow(entered);
             }
             else
             {
-                MessageBox.Show("Falsches Passwort!", "Fehler",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-                DialogResult = false;
+                // Falsch
+                MessageBox.Show("Falsches Passwort.", "Fehler",
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
+                MasterPasswordBox.Clear();
+                MasterPasswordBox.Focus();
             }
+        }
+
+        private void OpenMainWindow(string clearMasterPassword)
+        {
+            var main = new MainWindow(clearMasterPassword);
+            main.Show();
+            Close();
+        }
+
+        private string ComputeSha256Hash(string raw)
+        {
+            using var sha = SHA256.Create();
+            byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(raw));
+            return Convert.ToBase64String(bytes);
         }
     }
 }

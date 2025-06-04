@@ -3,9 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Passwort prüfen" Height="150" Width="300"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
-    <StackPanel Margin="10">
-        <TextBlock Text="Bitte Passwort eingeben:" FontSize="14"/>
-        <PasswordBox x:Name="PasswordCheckBox" Margin="0,5"/>
-        <Button Content="Prüfen" Width="80" HorizontalAlignment="Right" Click="Pruefen_Click"/>
-    </StackPanel>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Gib dein Passwort ein:" FontSize="14"/>
+        <PasswordBox x:Name="MasterPasswordBox" Grid.Row="1" Margin="0,5" FontSize="14"/>
+        <Button Content="Anmelden"
+                Grid.Row="2"
+                Width="100"
+                HorizontalAlignment="Right"
+                Click="OnVerifyClick"/>
+    </Grid>
 </Window>

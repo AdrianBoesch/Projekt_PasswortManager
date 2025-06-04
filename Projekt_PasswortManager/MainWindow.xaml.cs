@@ -1,47 +1,43 @@
-﻿using Projekt_PasswortManager;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Projekt_PasswortManager
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        private List<AppEintrag> apps = new List<AppEintrag>();
+        private readonly List<AppEintrag> apps = new List<AppEintrag>();
+        private readonly string _masterPasswordKey;
 
-        public MainWindow()
+        public MainWindow(string masterPasswordKey)
         {
             InitializeComponent();
-            AppListe.ItemsSource = apps;
+            _masterPasswordKey = masterPasswordKey;
+            this.AppListe.ItemsSource = this.apps;
         }
+
+        public MainWindow() : this(string.Empty) { }
 
         private void AppListe_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var ausgewählt = AppListe.SelectedItem as AppEintrag;
-            if (ausgewählt != null)
+            AppEintrag selected = this.AppListe.SelectedItem as AppEintrag;
+            if (selected != null)
             {
-                var fenster = new ViewWindow(ausgewählt.Passwort);
-                fenster.Show();
+                ViewWindow viewWindow = new ViewWindow(selected.Passwort);
+                viewWindow.Show();
             }
         }
 
         private void HinzufügenButton_Click(object sender, RoutedEventArgs e)
         {
-            var eingabeFenster = new EditWindow();
-            if (eingabeFenster.ShowDialog() == true)
+            EditWindow editWindow = new EditWindow();
+            bool? result = editWindow.ShowDialog();
+            if (result == true)
             {
-                apps.Add(eingabeFenster.NeuerEintrag);
-                AppListe.Items.Refresh();
+                AppEintrag neuerEintrag = editWindow.NeuerEintrag;
+                this.apps.Add(neuerEintrag);
+                this.AppListe.Items.Refresh();
             }
         }
 
@@ -80,8 +76,13 @@ namespace Projekt_PasswortManager
             }
             else
             {
-               
+                MessageBox.Show("Bitte wähle zuerst einen Eintrag aus der Liste aus.",
+                                "Hinweis",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
             }
         }
+
+        // Methode PrüfePasswort ist hier komplett entfernt
     }
 }
