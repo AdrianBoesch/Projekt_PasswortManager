@@ -65,6 +65,7 @@ namespace Projekt_PasswortManager
             main.Show();
             Close();
         }
+        
 
         private string ComputeSha256Hash(string raw)
         {
