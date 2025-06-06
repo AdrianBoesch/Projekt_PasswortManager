@@ -52,7 +52,11 @@ namespace Projekt_PasswortManager
                                 MessageBoxButton.OK, MessageBoxImage.Warning);
                 MasterPasswordBox.Clear();
                 MasterPasswordBox.Focus();
+
+
             }
+
+
         }
 
         private void OpenMainWindow(string clearMasterPassword)
