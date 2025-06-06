@@ -1,4 +1,5 @@
 ﻿
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace Projekt_PasswortManager
 
         private void Hinzufügen_Click(object sender, RoutedEventArgs e)
         {
-            
+
             string name = AppNameBox.Text;
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -34,7 +35,7 @@ namespace Projekt_PasswortManager
                 return;
             }
 
-            
+
             string pw = PasswortBox.Password;
             if (string.IsNullOrEmpty(pw))
             {
@@ -42,20 +43,19 @@ namespace Projekt_PasswortManager
                 return;
             }
 
-            
-            
 
-            
+
+
+
             NeuerEintrag = new AppEintrag
             {
                 AppName = name,
                 Passwort = pw
             };
 
-           
+
             DialogResult = true;
             Close();
         }
     }
 }
-

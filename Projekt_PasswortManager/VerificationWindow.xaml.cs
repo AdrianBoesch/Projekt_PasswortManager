@@ -13,7 +13,7 @@ namespace Projekt_PasswortManager
         public VerificationWindow()
         {
             InitializeComponent();
-            
+
             _cfg = ConfigService.Load();
         }
 
@@ -74,8 +74,8 @@ namespace Projekt_PasswortManager
             VerifPwAdd verifPwAdd = new VerifPwAdd();
             verifPwAdd.Show();
 
-            
-            
+
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -67,11 +68,11 @@ namespace Projekt_PasswortManager
 
         private void PrüfePasswort(AppEintrag ausgewählt)
         {
-           
+
             var verif = new VerificationWindow(ausgewählt.Passwort);
             if (verif.ShowDialog() == true)
             {
-               
+
                 MessageBox.Show("Zugriff gewährt für " + ausgewählt.AppName);
             }
             else
@@ -83,6 +84,6 @@ namespace Projekt_PasswortManager
             }
         }
 
-        
+
     }
 }
