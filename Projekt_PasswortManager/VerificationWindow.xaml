@@ -12,19 +12,20 @@
 
         <TextBlock Text="Gib dein Passwort ein:" FontSize="14"/>
         <PasswordBox x:Name="MasterPasswordBox" Grid.Row="1" Margin="0,5" FontSize="14"/>
+        
         <Button Content="Anmelden"
                 Grid.Row="2"
                 Width="100"
                 Height="20"
                 HorizontalAlignment="Right"
-                Click="OnVerifyClick"/>
+                Click="OnVerifyClick" Margin="0,35,0,-35"/>
 
 
         <Button Content="Passwort hinzufügen"
         Width="100"
         HorizontalAlignment="Right"
         VerticalAlignment="Bottom"
-        Click="OnAddPwClick" Margin="0,0,0,-30" Grid.Row="2"
+        Click="OnAddPwClick" Margin="0,0,0,-65" Grid.Row="2"
         FontSize="10" Height="20"/>
     </Grid>
 </Window>

@@ -68,7 +68,7 @@ namespace Projekt_PasswortManager
         private void PrüfePasswort(AppEintrag ausgewählt)
         {
            
-            var verif = new VerificationWindow(ausgewählt.Passwort);
+            var verif = new MainWindow(ausgewählt.Passwort);
             if (verif.ShowDialog() == true)
             {
                

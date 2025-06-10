@@ -69,43 +69,56 @@ namespace Projekt_PasswortManager
 
         private void Hinzufügen_Click(object sender, RoutedEventArgs e)
         {
-            string pw = isPasswordVisible ? PasswortTextBox.Text : PasswortBox.Password;
+            string altesPw = AltesPasswortBox.Password;
+            string neuesPw = NeuesPasswortBox.Password;
 
-            if (string.IsNullOrEmpty(pw))
+            if (string.IsNullOrEmpty(altesPw) || string.IsNullOrEmpty(neuesPw))
             {
-                MessageBox.Show("Bitte Passwort eingeben.");
+                MessageBox.Show("Bitte beide Passwörter eingeben.");
                 return;
             }
 
-            
-            using SHA256 sha256 = SHA256.Create();
-            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(pw));
-            string hash = BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            if (neuesPw.Length < 8)
+            {
+                MessageBox.Show("Neues Passwort muss mindestens 8 Zeichen lang sein.");
+                return;
+            }
 
-            
-            var data = new { hashed_password = hash };
-            string jsonString = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-
-            
-            string path = "password_hash.json";
             try
             {
-                File.WriteAllText(path, jsonString);
-                MessageBox.Show("Passwort-Hash wurde gespeichert.");
+                var cfg = ConfigService.Load();
+                string gespeichertesPw = CryptoService.Decrypt(cfg.MasterPasswordHash);
+
+                if (altesPw != gespeichertesPw)
+                {
+                    MessageBox.Show("Das alte Passwort ist falsch.");
+                    return;
+                }
+
+                // Neues Passwort verschlüsseln und speichern
+                string verschluesselt = CryptoService.Encrypt(neuesPw);
+                cfg.MasterPasswordHash = verschluesselt;
+                ConfigService.Save(cfg);
+
+                MessageBox.Show("Neues Passwort erfolgreich gespeichert.");
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Fehler beim Speichern: {ex.Message}");
+                MessageBox.Show("Fehler beim Speichern des neuen Passworts:\n" + ex.Message);
             }
-
-            Close();
         }
 
-
-
-
-
-
-        
     }
 }
+
+
+
+
+
+
+
+
+
+
+
