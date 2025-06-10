@@ -1,4 +1,4 @@
-﻿<Application x:Class="Projekt_PasswortManager.App"
+﻿ ﻿<Application x:Class="Projekt_PasswortManager.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Projekt_PasswortManager"

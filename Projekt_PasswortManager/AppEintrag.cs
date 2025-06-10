@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Projekt_PasswortManager
 {
-   
+
     public class AppEintrag
     {
-            public string AppName { get; set; }
-            public string Passwort { get; set; }
+        public string AppName { get; set; }
+        public string Passwort { get; set; }
     }
 }
