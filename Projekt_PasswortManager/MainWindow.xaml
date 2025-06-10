@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projekt_PasswortManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Passwort Manager"
+        WindowState="Maximized"
+        ResizeMode="CanMinimize"
+        WindowStyle="SingleBorderWindow"
+
+        Height="450" Width="800">
     <DockPanel Background="Beige">
         <StackPanel Orientation="Vertical" Background="Beige" Margin="10">
 
@@ -14,17 +19,17 @@
                     Click="HinzufügenButton_Click"
                     Margin="5"
                     Background="BurlyWood"
-                    BorderThickness="0"
+                    BorderThickness="0" Height="42" Width="121"
                     />
 
             <Button Content="Löschen"
-                    FocusVisualStyle="{x:Null}"
-                    Height="30"
-                    Padding="10,0"
+                    
+                    
+                    Padding="5"
                     Click="LöschenButton_Click"
                     Margin="5"
                     Background="BurlyWood"
-                    BorderBrush="Transparent"/>
+                    BorderThickness="0" Height="42" Width="121"/>
         </StackPanel>
 
         <ListBox x:Name="AppListe"

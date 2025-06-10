@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Projekt_PasswortManager.VerifPwAdd"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="App hinzufügen" Height="280" Width="400">
+        Title="Passwort ändern" Height="280" Width="400">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -10,18 +10,19 @@
 
         <StackPanel>
             <!-- Altes Passwort -->
-            <TextBlock Text="Altes Passwort:"/>
-            <TextBox x:Name="AltesPasswortBox" Margin="0,0,0,10"/>
+            <TextBlock Text="Altes Passwort:" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="AltesPasswortBox" Width="378" Height="25"/>
 
             <!-- Neues Passwort -->
-            <TextBlock Text="Neues Passwort:"/>
-            <TextBox x:Name="NeuesPasswortBox" Margin="0,0,0,10"/>
-
-            <!-- Aktuelles Eingabefeld (sichtbar/versteckt) -->
-            <TextBlock Text="Passwort anzeigen:"/>
+            <TextBlock Text="Neues Passwort:" Margin="0,0,0,5"/>
             <Grid>
-                <PasswordBox x:Name="PasswortBox" Margin="0,0,30,0" PasswordChanged="PasswortBox_PasswordChanged"/>
+                <!-- Verdecktes neues Passwort -->
+                <PasswordBox x:Name="NeuesPasswortBox" Margin="0,0,30,0" PasswordChanged="PasswortBox_PasswordChanged"/>
+
+                <!-- Sichtbares neues Passwort -->
                 <TextBox x:Name="PasswortTextBox" Margin="0,0,30,0" Visibility="Collapsed" TextChanged="PasswortTextBox_TextChanged"/>
+
+                <!-- Augen-Button -->
                 <Button x:Name="ToggleBtn" Content="👁" Width="25" Height="25"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -29,12 +30,13 @@
             </Grid>
         </StackPanel>
 
-        <!-- Button -->
+        <!-- Speichern-Button -->
         <Button Grid.Row="1"
                 Content="Hinzufügen"
                 HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
                 Width="100"
-                Margin="0,10,0,82"
+                Margin="0,10,0,10"
                 Click="Hinzufügen_Click"/>
     </Grid>
 </Window>

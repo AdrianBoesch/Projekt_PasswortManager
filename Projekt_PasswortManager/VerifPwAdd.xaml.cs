@@ -1,33 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using System.IO;
 
 namespace Projekt_PasswortManager
 {
-    /// <summary>
-    /// Interaction logic for VerifPwAdd.xaml
-    /// </summary>
     public partial class VerifPwAdd : Window
     {
-
-        public VerifPw NeuerEintrag { get; private set; }
         public VerifPwAdd()
         {
             InitializeComponent();
@@ -41,15 +18,15 @@ namespace Projekt_PasswortManager
 
             if (isPasswordVisible)
             {
-                PasswortTextBox.Text = PasswortBox.Password;
-                PasswortBox.Visibility = Visibility.Collapsed;
+                PasswortTextBox.Text = NeuesPasswortBox.Password;
+                NeuesPasswortBox.Visibility = Visibility.Collapsed;
                 PasswortTextBox.Visibility = Visibility.Visible;
                 ToggleBtn.Content = "🙈";
             }
             else
             {
-                PasswortBox.Password = PasswortTextBox.Text;
-                PasswortBox.Visibility = Visibility.Visible;
+                NeuesPasswortBox.Password = PasswortTextBox.Text;
+                NeuesPasswortBox.Visibility = Visibility.Visible;
                 PasswortTextBox.Visibility = Visibility.Collapsed;
                 ToggleBtn.Content = "👁";
             }
@@ -58,13 +35,13 @@ namespace Projekt_PasswortManager
         private void PasswortBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (isPasswordVisible)
-                PasswortTextBox.Text = PasswortBox.Password;
+                PasswortTextBox.Text = NeuesPasswortBox.Password;
         }
 
         private void PasswortTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!isPasswordVisible)
-                PasswortBox.Password = PasswortTextBox.Text;
+                NeuesPasswortBox.Password = PasswortTextBox.Text;
         }
 
         private void Hinzufügen_Click(object sender, RoutedEventArgs e)
@@ -89,7 +66,10 @@ namespace Projekt_PasswortManager
                 var cfg = ConfigService.Load();
                 string gespeichertesPw = CryptoService.Decrypt(cfg.MasterPasswordHash);
 
-                if (altesPw != gespeichertesPw)
+                MessageBox.Show($"Gespeichertes Passwort (entschlüsselt): '{gespeichertesPw}'");
+                MessageBox.Show($"Eingegebenes altes Passwort: '{altesPw}'");
+
+                if (altesPw.Trim() != gespeichertesPw.Trim())
                 {
                     MessageBox.Show("Das alte Passwort ist falsch.");
                     return;
@@ -111,14 +91,3 @@ namespace Projekt_PasswortManager
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
