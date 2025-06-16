@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
+using Serilog;
 
 namespace Projekt_PasswortManager
 {
@@ -46,17 +47,21 @@ namespace Projekt_PasswortManager
 
         private void Hinzufügen_Click(object sender, RoutedEventArgs e)
         {
+            Log.Logger.Information("Versuch, Master-Passwort zu ändern.");
+
             string altesPw = AltesPasswortBox.Password;
             string neuesPw = NeuesPasswortBox.Password;
 
             if (string.IsNullOrEmpty(altesPw) || string.IsNullOrEmpty(neuesPw))
             {
+                Log.Logger.Warning("Passwortänderung abgebrochen: Eingabe unvollständig.");
                 MessageBox.Show("Bitte beide Passwörter eingeben.");
                 return;
             }
 
             if (neuesPw.Length < 8)
             {
+                Log.Logger.Warning("Passwortänderung abgebrochen: Neues Passwort zu kurz.");
                 MessageBox.Show("Neues Passwort muss mindestens 8 Zeichen lang sein.");
                 return;
             }
@@ -66,11 +71,11 @@ namespace Projekt_PasswortManager
                 var cfg = ConfigService.Load();
                 string gespeichertesPw = CryptoService.Decrypt(cfg.MasterPasswordHash);
 
-                MessageBox.Show($"Gespeichertes Passwort (entschlüsselt): '{gespeichertesPw}'");
-                MessageBox.Show($"Eingegebenes altes Passwort: '{altesPw}'");
+               
 
                 if (altesPw.Trim() != gespeichertesPw.Trim())
                 {
+                    Log.Logger.Warning("Passwortänderung fehlgeschlagen: Altes Passwort falsch.");
                     MessageBox.Show("Das alte Passwort ist falsch.");
                     return;
                 }
@@ -79,12 +84,14 @@ namespace Projekt_PasswortManager
                 string verschluesselt = CryptoService.Encrypt(neuesPw);
                 cfg.MasterPasswordHash = verschluesselt;
                 ConfigService.Save(cfg);
+                Log.Logger.Information("Master-Passwort erfolgreich geändert.");
 
                 MessageBox.Show("Neues Passwort erfolgreich gespeichert.");
                 Close();
             }
             catch (Exception ex)
             {
+                Log.Logger.Error(ex, "Fehler beim Speichern des neuen Master-Passworts.");
                 MessageBox.Show("Fehler beim Speichern des neuen Passworts:\n" + ex.Message);
             }
         }

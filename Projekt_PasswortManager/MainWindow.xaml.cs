@@ -1,6 +1,7 @@
-﻿
+﻿using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 
@@ -8,7 +9,7 @@ namespace Projekt_PasswortManager
 {
     public partial class MainWindow : Window
     {
-        private readonly List<AppEintrag> apps = new List<AppEintrag>();
+        private List<AppEintrag> apps = new List<AppEintrag>();
         private readonly string _masterPasswordKey;
 
         public MainWindow(string masterPasswordKey)
@@ -16,6 +17,18 @@ namespace Projekt_PasswortManager
             InitializeComponent();
             _masterPasswordKey = masterPasswordKey;
             this.AppListe.ItemsSource = this.apps;
+
+            // Optional: Automatisch laden beim Start
+            this.apps.AddRange(AppEintragService.Laden());
+            Log.Logger.Information("AppEinträge geladen: {Count}", this.apps.Count);
+            this.AppListe.Items.Refresh();
+
+            Log.Logger = new LoggerConfiguration().
+                WriteTo.Console().
+                WriteTo.File("stopwatch.log").
+                CreateLogger();
+
+            Log.Logger.Information("MainWindow started ...");
         }
 
         public MainWindow() : this(string.Empty) { }
@@ -25,6 +38,8 @@ namespace Projekt_PasswortManager
             AppEintrag selected = this.AppListe.SelectedItem as AppEintrag;
             if (selected != null)
             {
+                int index = this.apps.IndexOf(selected);
+                Log.Logger.Information("Eintrag zur Anzeige geöffnet. Index: {Index}", index);
                 ViewWindow viewWindow = new ViewWindow(selected.Passwort);
                 viewWindow.Show();
             }
@@ -38,6 +53,7 @@ namespace Projekt_PasswortManager
             {
                 AppEintrag neuerEintrag = editWindow.NeuerEintrag;
                 this.apps.Add(neuerEintrag);
+                Log.Logger.Information("Neuer Eintrag hinzugefügt. Neue Gesamtanzahl: {Count}", this.apps.Count);
                 this.AppListe.Items.Refresh();
             }
         }
@@ -47,49 +63,28 @@ namespace Projekt_PasswortManager
             var ausgewählt = AppListe.SelectedItem as AppEintrag;
             if (ausgewählt != null)
             {
-                var result = MessageBox.Show($"Möchtest du \"{ausgewählt.AppName}\" wirklich löschen?",
-                                             "Löschen bestätigen",
-                                             MessageBoxButton.YesNo,
-                                             MessageBoxImage.Warning);
-                if (result == MessageBoxResult.Yes)
-                {
-                    apps.Remove(ausgewählt);
-                    AppListe.Items.Refresh();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Bitte wähle zuerst einen Eintrag aus der Liste aus.",
-                                "Hinweis",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                int index = this.apps.IndexOf(ausgewählt);
+                this.apps.Remove(ausgewählt);
+                Log.Logger.Information("Eintrag gelöscht. Index war: {Index}. Verbleibend: {Count}", index, this.apps.Count);
+                this.AppListe.Items.Refresh();
             }
         }
 
-        private void PrüfePasswort(AppEintrag ausgewählt)
+        private void SpeichernButton_Click(object sender, RoutedEventArgs e)
         {
-           
-            var verif = new MainWindow(ausgewählt.Passwort);
-            if (verif.ShowDialog() == true)
-            {
-
-                MessageBox.Show("Zugriff gewährt für " + ausgewählt.AppName);
-            }
-            else
-            {
-                MessageBox.Show("Bitte wähle zuerst einen Eintrag aus der Liste aus.",
-                                "Hinweis",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
-            }
+            AppEintragService.Speichern(this.apps);
+            Log.Logger.Information("Manuelles Speichern ausgelöst. Gespeicherte Einträge: {Count}", this.apps.Count);
+            MessageBox.Show("Einträge wurden gespeichert.", "Gespeichert", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+       
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            AppEintragService.Speichern(this.apps); // Optional automatisches Speichern beim Schließen
+            Log.Logger.Information("Anwendung geschlossen. Automatisches Speichern durchgeführt. Einträge: {Count}", this.apps.Count);
+        }
 
     }
 }
-
-
-
-
-
-
